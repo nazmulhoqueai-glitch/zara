@@ -70,7 +70,7 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
 
       {/* Sidebar */}
       <div className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 lg:static lg:inset-0
       `}>
@@ -92,7 +92,8 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
           </Button>
         </div>
 
-        <nav className="mt-6 px-3">
+        {/* Navigation */}
+        <nav className="flex-1 px-3 py-6">
           <div className="space-y-1">
             {navigation.map((item) => {
               const Icon = item.icon
@@ -122,8 +123,8 @@ function AdminLayoutContent({ children }: AdminLayoutProps) {
           </div>
         </nav>
 
-        {/* User info and logout */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+        {/* User info and logout - Desktop only */}
+        <div className="hidden lg:block border-t border-gray-200 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
