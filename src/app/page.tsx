@@ -132,32 +132,32 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 xl:gap-12 items-center">
               {/* Left Side - Text Content */}
-              <div className="text-left pt-8 pb-8 lg:pt-0 lg:pb-0">
-                <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold ${heroSlides[currentSlide].textColor} mb-4 sm:mb-6 leading-tight`}>
+              <div className="text-left pt-4 pb-4 sm:pt-6 sm:pb-6 lg:pt-0 lg:pb-0">
+                <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-bold ${heroSlides[currentSlide].textColor} mb-3 sm:mb-4 lg:mb-6 leading-tight`}>
                   {heroSlides[currentSlide].title}
                 </h1>
                 
-                <p className={`text-base sm:text-lg md:text-xl lg:text-2xl ${heroSlides[currentSlide].textColor} mb-6 sm:mb-8 opacity-90 leading-relaxed`}>
+                <p className={`text-sm sm:text-base md:text-lg lg:text-xl ${heroSlides[currentSlide].textColor} mb-4 sm:mb-6 lg:mb-8 opacity-90 leading-relaxed`}>
                   {heroSlides[currentSlide].description}
                 </p>
                 
                 <Button 
                   size="lg" 
-                  className={`${heroSlides[currentSlide].buttonColor} px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-semibold group`}
+                  className={`${heroSlides[currentSlide].buttonColor} px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 text-xs sm:text-sm md:text-base lg:text-lg font-semibold group`}
                 >
                   {heroSlides[currentSlide].subtitle}
-                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
 
               {/* Right Side - Models/Products */}
-              <div className="relative hidden lg:block">
-                <div className="grid grid-cols-3 gap-4 h-96">
+              <div className="relative">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4 h-64 sm:h-80 lg:h-96">
                   {/* Model 1 */}
                   <div className="flex flex-col items-center justify-end">
-                    <div className="w-32 h-80 rounded-t-lg relative overflow-hidden shadow-2xl border-4 border-white/30 hover:border-white/50 transition-all duration-300">
+                    <div className="w-20 sm:w-24 lg:w-32 h-48 sm:h-64 lg:h-80 rounded-t-lg relative overflow-hidden shadow-2xl border-2 sm:border-4 border-white/30 hover:border-white/50 transition-all duration-300">
           <Image
                         src={heroSlides[currentSlide].images[0]}
                         alt={`${heroSlides[currentSlide].title} Model 1`}
@@ -172,7 +172,7 @@ export default function Home() {
                   
                   {/* Model 2 */}
                   <div className="flex flex-col items-center justify-center">
-                    <div className="w-32 h-80 rounded-t-lg relative overflow-hidden shadow-2xl border-4 border-white/30 hover:border-white/50 transition-all duration-300">
+                    <div className="w-20 sm:w-24 lg:w-32 h-48 sm:h-64 lg:h-80 rounded-t-lg relative overflow-hidden shadow-2xl border-2 sm:border-4 border-white/30 hover:border-white/50 transition-all duration-300">
           <Image
                         src={heroSlides[currentSlide].images[1]}
                         alt={`${heroSlides[currentSlide].title} Model 2`}
@@ -187,7 +187,7 @@ export default function Home() {
                   
                   {/* Model 3 */}
                   <div className="flex flex-col items-center justify-end">
-                    <div className="w-32 h-80 rounded-t-lg relative overflow-hidden shadow-2xl border-4 border-white/30 hover:border-white/50 transition-all duration-300">
+                    <div className="w-20 sm:w-24 lg:w-32 h-48 sm:h-64 lg:h-80 rounded-t-lg relative overflow-hidden shadow-2xl border-2 sm:border-4 border-white/30 hover:border-white/50 transition-all duration-300">
           <Image
                         src={heroSlides[currentSlide].images[2]}
                         alt={`${heroSlides[currentSlide].title} Model 3`}
