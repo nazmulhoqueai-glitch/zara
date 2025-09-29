@@ -21,9 +21,23 @@ import { useLocale } from '@/i18n/LocaleProvider'
 
 // Real users will be fetched from Firebase
 
+interface User {
+  uid: string
+  email: string
+  firstName: string
+  lastName: string
+  phone: string
+  role: 'user' | 'admin'
+  isActive: boolean
+  createdAt: string
+  lastLogin: string
+  totalOrders: number
+  totalSpent: number
+}
+
 export default function UsersPage() {
   const { t, locale } = useLocale()
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState<User[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedRole, setSelectedRole] = useState('all')
   const [selectedStatus, setSelectedStatus] = useState('all')
@@ -74,7 +88,7 @@ export default function UsersPage() {
     ))
   }
 
-  const handleChangeUserRole = (userId: string, newRole: string) => {
+  const handleChangeUserRole = (userId: string, newRole: 'user' | 'admin') => {
     setUsers(users.map(user => 
       user.uid === userId 
         ? { ...user, role: newRole }
@@ -263,7 +277,7 @@ export default function UsersPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <select
                         value={user.role}
-                        onChange={(e) => handleChangeUserRole(user.uid, e.target.value)}
+                        onChange={(e) => handleChangeUserRole(user.uid, e.target.value as 'user' | 'admin')}
                         className={`px-2 py-1 text-xs rounded-full border-0 ${getRoleColor(user.role)}`}
                       >
                         <option value="user">{t('role_user')}</option>

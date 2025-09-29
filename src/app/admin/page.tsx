@@ -17,9 +17,30 @@ import { useLocale } from '@/i18n/LocaleProvider'
 
 // Real data will be fetched from Firebase
 
+interface DashboardStats {
+  totalProducts: number
+  totalOrders: number
+  totalUsers: number
+  totalRevenue: number
+  recentOrders: Array<{
+    id: string
+    customer: string
+    product: string
+    amount: number
+    status: string
+    date: string
+  }>
+  topProducts: Array<{
+    id: string
+    name: string
+    sales: number
+    revenue: number
+  }>
+}
+
 export default function AdminDashboard() {
   const { t, locale } = useLocale()
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<DashboardStats>({
     totalProducts: 0,
     totalOrders: 0,
     totalUsers: 0,

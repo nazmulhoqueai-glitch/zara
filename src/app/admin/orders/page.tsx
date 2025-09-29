@@ -18,9 +18,39 @@ import { useLocale } from '@/i18n/LocaleProvider'
 
 // Real orders will be fetched from Firebase
 
+interface Order {
+  id: string
+  customer: {
+    name: string
+    email: string
+    phone: string
+  }
+  items: Array<{
+    id: string
+    name: string
+    price: number
+    quantity: number
+    size: string
+    color: string
+    image: string
+  }>
+  total: number
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+  paymentMethod: 'credit_card' | 'apple_pay' | 'bank_transfer'
+  shippingAddress: {
+    name: string
+    street: string
+    city: string
+    postalCode: string
+    country: string
+  }
+  createdAt: string
+  updatedAt: string
+}
+
 export default function OrdersPage() {
   const { t, locale } = useLocale()
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState<Order[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('all')
@@ -69,7 +99,7 @@ export default function OrdersPage() {
   const statuses = ['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled']
   const paymentMethods = ['all', 'apple_pay', 'credit_card', 'bank_transfer']
 
-  const handleStatusChange = (orderId: string, newStatus: string) => {
+  const handleStatusChange = (orderId: string, newStatus: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled') => {
     setOrders(orders.map(order => 
       order.id === orderId 
         ? { ...order, status: newStatus, updatedAt: new Date().toISOString() }
@@ -225,7 +255,7 @@ export default function OrdersPage() {
                     </label>
                     <select
                       value={order.status}
-                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                      onChange={(e) => handleStatusChange(order.id, e.target.value as 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled')}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     >
                       <option value="pending">{t('order_status_pending')}</option>
