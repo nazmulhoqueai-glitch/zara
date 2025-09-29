@@ -19,105 +19,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useLocale } from '@/i18n/LocaleProvider'
 
-// Mock users data - In real app, this would come from Firebase
-const mockUsers = [
-  {
-    uid: '1',
-    email: 'sarah.ahmed@email.com',
-    firstName: 'Sarah',
-    lastName: 'Ahmed',
-    phone: '+966501234567',
-    role: 'user',
-    isActive: true,
-    createdAt: '2024-01-01T10:30:00Z',
-    lastLogin: '2024-01-15T14:20:00Z',
-    totalOrders: 5,
-    totalSpent: 1495
-  },
-  {
-    uid: '2',
-    email: 'fatima.alrashid@email.com',
-    firstName: 'Fatima',
-    lastName: 'Al-Rashid',
-    phone: '+966502345678',
-    role: 'user',
-    isActive: true,
-    createdAt: '2024-01-02T09:15:00Z',
-    lastLogin: '2024-01-14T16:45:00Z',
-    totalOrders: 3,
-    totalSpent: 897
-  },
-  {
-    uid: '3',
-    email: 'aisha.khan@email.com',
-    firstName: 'Aisha',
-    lastName: 'Khan',
-    phone: '+966503456789',
-    role: 'user',
-    isActive: true,
-    createdAt: '2024-01-03T11:20:00Z',
-    lastLogin: '2024-01-13T10:30:00Z',
-    totalOrders: 7,
-    totalSpent: 2093
-  },
-  {
-    uid: '4',
-    email: 'mariam.hassan@email.com',
-    firstName: 'Mariam',
-    lastName: 'Hassan',
-    phone: '+966504567890',
-    role: 'user',
-    isActive: false,
-    createdAt: '2024-01-04T08:45:00Z',
-    lastLogin: '2024-01-10T12:15:00Z',
-    totalOrders: 2,
-    totalSpent: 398
-  },
-  {
-    uid: '5',
-    email: 'noor.alzahra@email.com',
-    firstName: 'Noor',
-    lastName: 'Al-Zahra',
-    phone: '+966505678901',
-    role: 'user',
-    isActive: true,
-    createdAt: '2024-01-05T15:30:00Z',
-    lastLogin: '2024-01-12T09:45:00Z',
-    totalOrders: 4,
-    totalSpent: 1196
-  },
-  {
-    uid: '6',
-    email: 'admin@jara.com',
-    firstName: 'Admin',
-    lastName: 'User',
-    phone: '+966506789012',
-    role: 'admin',
-    isActive: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    lastLogin: '2024-01-15T17:30:00Z',
-    totalOrders: 0,
-    totalSpent: 0
-  },
-  // Add more mock users...
-  ...Array.from({ length: 15 }, (_, i) => ({
-    uid: `${i + 7}`,
-    email: `user${i + 7}@email.com`,
-    firstName: `User${i + 7}`,
-    lastName: 'Test',
-    phone: `+96650${(i + 7).toString().padStart(7, '0')}`,
-    role: 'user' as const,
-    isActive: Math.random() > 0.2,
-    createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-    lastLogin: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-    totalOrders: Math.floor(Math.random() * 10),
-    totalSpent: Math.floor(Math.random() * 2000)
-  }))
-]
+// Real users will be fetched from Firebase
 
 export default function UsersPage() {
   const { t, locale } = useLocale()
-  const [users, setUsers] = useState(mockUsers)
+  const [users, setUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedRole, setSelectedRole] = useState('all')
   const [selectedStatus, setSelectedStatus] = useState('all')

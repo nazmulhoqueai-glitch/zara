@@ -15,79 +15,18 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useLocale } from '@/i18n/LocaleProvider'
 
-// Mock data - In real app, this would come from Firebase
-const mockStats = {
-  totalProducts: 156,
-  totalOrders: 89,
-  totalUsers: 234,
-  totalRevenue: 45680,
-  recentOrders: [
-    {
-      id: 'ORD-001',
-      customer: 'Sarah Ahmed',
-      product: 'Elegant Purple Borka',
-      amount: 299,
-      status: 'processing',
-      date: '2024-01-15'
-    },
-    {
-      id: 'ORD-002',
-      customer: 'Fatima Al-Rashid',
-      product: 'Classic Black Abaya',
-      amount: 199,
-      status: 'shipped',
-      date: '2024-01-14'
-    },
-    {
-      id: 'ORD-003',
-      customer: 'Aisha Khan',
-      product: 'Royal Blue Borka',
-      amount: 349,
-      status: 'delivered',
-      date: '2024-01-13'
-    },
-    {
-      id: 'ORD-004',
-      customer: 'Mariam Hassan',
-      product: 'Elegant Purple Borka',
-      amount: 299,
-      status: 'pending',
-      date: '2024-01-12'
-    },
-    {
-      id: 'ORD-005',
-      customer: 'Noor Al-Zahra',
-      product: 'Classic Black Abaya',
-      amount: 199,
-      status: 'processing',
-      date: '2024-01-11'
-    }
-  ],
-  topProducts: [
-    {
-      id: '1',
-      name: 'Elegant Purple Borka',
-      sales: 45,
-      revenue: 13455
-    },
-    {
-      id: '2',
-      name: 'Classic Black Abaya',
-      sales: 38,
-      revenue: 7562
-    },
-    {
-      id: '3',
-      name: 'Royal Blue Borka',
-      sales: 32,
-      revenue: 11168
-    }
-  ]
-}
+// Real data will be fetched from Firebase
 
 export default function AdminDashboard() {
   const { t, locale } = useLocale()
-  const [stats, setStats] = useState(mockStats)
+  const [stats, setStats] = useState({
+    totalProducts: 0,
+    totalOrders: 0,
+    totalUsers: 0,
+    totalRevenue: 0,
+    recentOrders: [],
+    topProducts: []
+  })
 
   const formatPrice = (price: number) => {
     if (locale === 'ar') {
