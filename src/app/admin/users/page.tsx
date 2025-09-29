@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Search, 
   Filter, 
@@ -19,28 +19,33 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useLocale } from '@/i18n/LocaleProvider'
 
-// Real users will be fetched from Firebase
-
-interface User {
-  uid: string
-  email: string
-  firstName: string
-  lastName: string
-  phone: string
-  role: 'user' | 'admin'
-  isActive: boolean
-  createdAt: string
-  lastLogin: string
-  totalOrders: number
-  totalSpent: number
-}
+import { getAllUsers, updateUserRole, updateUserStatus, User } from '@/lib/users-orders'
 
 export default function UsersPage() {
   const { t, locale } = useLocale()
   const [users, setUsers] = useState<User[]>([])
+  const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedRole, setSelectedRole] = useState('all')
   const [selectedStatus, setSelectedStatus] = useState('all')
+
+  // Load users from Firebase
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        setLoading(true)
+        const firebaseUsers = await getAllUsers()
+        setUsers(firebaseUsers)
+      } catch (error) {
+        console.error('Error loading users:', error)
+        setUsers([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadUsers()
+  }, [])
 
   const formatPrice = (price: number) => {
     if (locale === 'ar') {
@@ -80,27 +85,40 @@ export default function UsersPage() {
   const roles = ['all', 'admin', 'user']
   const statuses = ['all', 'active', 'inactive']
 
-  const handleToggleUserStatus = (userId: string) => {
-    setUsers(users.map(user => 
-      user.uid === userId 
-        ? { ...user, isActive: !user.isActive }
-        : user
-    ))
+  const handleToggleUserStatus = async (userId: string) => {
+    try {
+      const user = users.find(u => u.uid === userId)
+      if (user) {
+        await updateUserStatus(userId, !user.isActive)
+        setUsers(users.map(u => 
+          u.uid === userId 
+            ? { ...u, isActive: !u.isActive }
+            : u
+        ))
+      }
+    } catch (error) {
+      console.error('Error updating user status:', error)
+    }
   }
 
-  const handleChangeUserRole = (userId: string, newRole: 'user' | 'admin') => {
-    setUsers(users.map(user => 
-      user.uid === userId 
-        ? { ...user, role: newRole }
-        : user
-    ))
+  const handleChangeUserRole = async (userId: string, newRole: 'user' | 'admin') => {
+    try {
+      await updateUserRole(userId, newRole)
+      setUsers(users.map(user => 
+        user.uid === userId 
+          ? { ...user, role: newRole }
+          : user
+      ))
+    } catch (error) {
+      console.error('Error updating user role:', error)
+    }
   }
 
   // Statistics
   const totalUsers = users.length
   const activeUsers = users.filter(u => u.isActive).length
   const adminUsers = users.filter(u => u.role === 'admin').length
-  const totalRevenue = users.reduce((sum, user) => sum + user.totalSpent, 0)
+  const totalRevenue = users.reduce((sum, user) => sum + (user.totalSpent || 0), 0)
 
   return (
     <div className="space-y-6">
@@ -293,10 +311,10 @@ export default function UsersPage() {
                       {user.totalOrders}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {formatPrice(user.totalSpent)}
+                      {formatPrice(user.totalSpent || 0)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(user.lastLogin).toLocaleDateString()}
+                      {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center gap-2">

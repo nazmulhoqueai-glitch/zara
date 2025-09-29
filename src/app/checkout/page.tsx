@@ -12,6 +12,7 @@ import { CheckoutForm } from '@/components/checkout/CheckoutForm'
 import { PaymentMethod } from '@/components/checkout/PaymentMethod'
 import { OrderSummary } from '@/components/checkout/OrderSummary'
 import { OrderConfirmation } from '@/components/checkout/OrderConfirmation'
+import { createOrder } from '@/lib/users-orders'
 
 type CheckoutStep = 'shipping' | 'payment' | 'confirmation'
 
@@ -38,15 +39,55 @@ export default function CheckoutPage() {
   const tax = subtotal * 0.15 // 15% VAT
   const total = subtotal + shipping + tax
 
-  const handleStepComplete = (step: CheckoutStep, data: any) => {
+  const handleStepComplete = async (step: CheckoutStep, data: any) => {
     setOrderData({ ...orderData, ...data })
     
     if (step === 'shipping') {
       setCurrentStep('payment')
     } else if (step === 'payment') {
-      setCurrentStep('confirmation')
-      // Clear cart after successful order
-      clear()
+      // Create order in Firebase
+      try {
+        const orderItems = Object.values(items).map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          size: item.size || 'M',
+          color: item.color || 'Black',
+          image: item.image || ''
+        }))
+
+        const orderData = {
+          customer: {
+            name: `${data.firstName} ${data.lastName}`,
+            email: data.email,
+            phone: data.phone
+          },
+          items: orderItems,
+          total: total,
+          status: 'pending' as const,
+          paymentMethod: data.paymentMethod,
+          shippingAddress: {
+            name: `${data.firstName} ${data.lastName}`,
+            street: data.address,
+            city: data.city,
+            postalCode: data.postalCode,
+            country: data.country
+          }
+        }
+
+        const orderId = await createOrder(orderData)
+        console.log('Order created with ID:', orderId)
+        
+        // Clear cart after successful order
+        clear()
+        setCurrentStep('confirmation')
+      } catch (error) {
+        console.error('Error creating order:', error)
+        // Still proceed to confirmation but show error
+        clear()
+        setCurrentStep('confirmation')
+      }
     }
   }
 

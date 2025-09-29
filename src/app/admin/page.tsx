@@ -13,7 +13,9 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { getAllProducts } from '@/lib/products'
 import { useLocale } from '@/i18n/LocaleProvider'
+import { getAllUsers, getAllOrders } from '@/lib/users-orders'
 
 // Real data will be fetched from Firebase
 
@@ -48,6 +50,58 @@ export default function AdminDashboard() {
     recentOrders: [],
     topProducts: []
   })
+  const [loading, setLoading] = useState(true)
+
+  // Load dashboard data from Firebase
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      try {
+        setLoading(true)
+        const [products, users, orders] = await Promise.all([
+          getAllProducts(),
+          getAllUsers(),
+          getAllOrders()
+        ])
+
+        // Calculate revenue
+        const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0)
+
+        // Get recent orders (last 5)
+        const recentOrders = orders.slice(0, 5).map(order => ({
+          id: order.id,
+          customer: order.customer.name,
+          product: order.items[0]?.name || 'Multiple items',
+          amount: order.total,
+          status: order.status,
+          date: new Date(order.createdAt).toLocaleDateString()
+        }))
+
+        // Get top products (mock for now - would need order analytics)
+        const topProducts = products.slice(0, 5).map(product => ({
+          id: product.id,
+          name: product.name,
+          sales: Math.floor(Math.random() * 50) + 1, // Mock sales data
+          revenue: Math.floor(Math.random() * 5000) + 100 // Mock revenue data
+        }))
+
+        setStats({
+          totalProducts: products.length,
+          totalOrders: orders.length,
+          totalUsers: users.length,
+          totalRevenue,
+          recentOrders,
+          topProducts
+        })
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+        // Keep default empty stats
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadDashboardData()
+  }, [])
 
   const formatPrice = (price: number) => {
     if (locale === 'ar') {

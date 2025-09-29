@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Search, 
   Filter, 
@@ -16,44 +16,33 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useLocale } from '@/i18n/LocaleProvider'
 
-// Real orders will be fetched from Firebase
-
-interface Order {
-  id: string
-  customer: {
-    name: string
-    email: string
-    phone: string
-  }
-  items: Array<{
-    id: string
-    name: string
-    price: number
-    quantity: number
-    size: string
-    color: string
-    image: string
-  }>
-  total: number
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
-  paymentMethod: 'credit_card' | 'apple_pay' | 'bank_transfer'
-  shippingAddress: {
-    name: string
-    street: string
-    city: string
-    postalCode: string
-    country: string
-  }
-  createdAt: string
-  updatedAt: string
-}
+import { getAllOrders, updateOrderStatus, Order } from '@/lib/users-orders'
 
 export default function OrdersPage() {
   const { t, locale } = useLocale()
   const [orders, setOrders] = useState<Order[]>([])
+  const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('all')
+
+  // Load orders from Firebase
+  useEffect(() => {
+    const loadOrders = async () => {
+      try {
+        setLoading(true)
+        const firebaseOrders = await getAllOrders()
+        setOrders(firebaseOrders)
+      } catch (error) {
+        console.error('Error loading orders:', error)
+        setOrders([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadOrders()
+  }, [])
 
   const formatPrice = (price: number) => {
     if (locale === 'ar') {
@@ -99,12 +88,17 @@ export default function OrdersPage() {
   const statuses = ['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled']
   const paymentMethods = ['all', 'apple_pay', 'credit_card', 'bank_transfer']
 
-  const handleStatusChange = (orderId: string, newStatus: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled') => {
-    setOrders(orders.map(order => 
-      order.id === orderId 
-        ? { ...order, status: newStatus, updatedAt: new Date().toISOString() }
-        : order
-    ))
+  const handleStatusChange = async (orderId: string, newStatus: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled') => {
+    try {
+      await updateOrderStatus(orderId, newStatus)
+      setOrders(orders.map(order =>
+        order.id === orderId
+          ? { ...order, status: newStatus, updatedAt: new Date().toISOString() }
+          : order
+      ))
+    } catch (error) {
+      console.error('Error updating order status:', error)
+    }
   }
 
   return (
