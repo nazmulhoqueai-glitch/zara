@@ -27,7 +27,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image 
-              src="/images/Logo/logo.png" 
+              src="/Images/Logo/Logo.png" 
               alt="JARA Logo" 
               width={40}
               height={40}

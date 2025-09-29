@@ -13,7 +13,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center">
               <Image 
-                src="/images/Logo/logo.png" 
+                src="/Images/Logo/Logo.png" 
                 alt="JARA Logo" 
                 width={48}
                 height={48}

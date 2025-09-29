@@ -48,9 +48,9 @@ export default function Home() {
       textColor: "text-white",
       buttonColor: "bg-white text-gray-900 hover:bg-gray-100",
       images: [
-        "/images/slide1-borka/model1.png",
-        "/images/slide1-borka/model2.png",
-        "/images/slide1-borka/model3.png"
+        "/Images/slide1-borka/model1.png",
+        "/Images/slide1-borka/model2.png",
+        "/Images/slide1-borka/model3.png"
       ]
     },
     {
@@ -62,9 +62,9 @@ export default function Home() {
       textColor: "text-white",
       buttonColor: "bg-white text-gray-900 hover:bg-gray-100",
       images: [
-        "/images/slide2-abaya/model1.png",
-        "/images/slide2-abaya/model2.png",
-        "/images/slide2-abaya/model3.png"
+        "/Images/slide2-abaya/model1.png",
+        "/Images/slide2-abaya/model2.png",
+        "/Images/slide2-abaya/model3.png"
       ]
     },
     {
@@ -76,9 +76,9 @@ export default function Home() {
       textColor: "text-white",
       buttonColor: "bg-white text-gray-900 hover:bg-gray-100",
       images: [
-        "/images/slide3-modest/model1.png",
-        "/images/slide3-modest/model2.png",
-        "/images/slide3-modest/model3.png"
+        "/Images/slide3-modest/model1.png",
+        "/Images/slide3-modest/model2.png",
+        "/Images/slide3-modest/model3.png"
       ]
     },
     {
@@ -90,9 +90,9 @@ export default function Home() {
       textColor: "text-white",
       buttonColor: "bg-white text-gray-900 hover:bg-gray-100",
       images: [
-        "/images/slide4-ramadan/model1.png",
-        "/images/slide4-ramadan/model2.png",
-        "/images/slide4-ramadan/model3.png"
+        "/Images/slide4-ramadan/model1.png",
+        "/Images/slide4-ramadan/model2.png",
+        "/Images/slide4-ramadan/model3.png"
       ]
     }
   ]
