@@ -132,28 +132,28 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Side - Text Content */}
-              <div className="text-left">
-                <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold ${heroSlides[currentSlide].textColor} mb-6 leading-tight`}>
+              <div className="text-left pt-8 pb-8 lg:pt-0 lg:pb-0">
+                <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold ${heroSlides[currentSlide].textColor} mb-4 sm:mb-6 leading-tight`}>
                   {heroSlides[currentSlide].title}
                 </h1>
                 
-                <p className={`text-xl md:text-2xl ${heroSlides[currentSlide].textColor} mb-8 opacity-90`}>
+                <p className={`text-base sm:text-lg md:text-xl lg:text-2xl ${heroSlides[currentSlide].textColor} mb-6 sm:mb-8 opacity-90 leading-relaxed`}>
                   {heroSlides[currentSlide].description}
                 </p>
                 
                 <Button 
                   size="lg" 
-                  className={`${heroSlides[currentSlide].buttonColor} px-8 py-4 text-lg font-semibold group`}
+                  className={`${heroSlides[currentSlide].buttonColor} px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-semibold group`}
                 >
                   {heroSlides[currentSlide].subtitle}
-                  <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
 
               {/* Right Side - Models/Products */}
-              <div className="relative">
+              <div className="relative hidden lg:block">
                 <div className="grid grid-cols-3 gap-4 h-96">
                   {/* Model 1 */}
                   <div className="flex flex-col items-center justify-end">

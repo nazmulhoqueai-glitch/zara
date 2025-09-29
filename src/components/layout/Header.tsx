@@ -25,13 +25,13 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center flex-shrink-0">
             <Image 
               src="/Images/Logo/Logo.png" 
               alt="JARA Logo" 
               width={40}
               height={40}
-              className="h-10 w-auto"
+              className="h-8 w-auto sm:h-10"
               priority
             />
           </Link>
@@ -65,16 +65,16 @@ export function Header() {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-2 md:space-x-4">
+          <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 flex-shrink-0">
             {/* Language Switcher */}
-            <Button variant="ghost" size="sm" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')} title={locale === 'ar' ? 'English' : 'العربية'}>
-              <Globe className="w-5 h-5" />
-              <span className="ml-1 text-sm">{locale === 'ar' ? 'EN' : 'AR'}</span>
+            <Button variant="ghost" size="sm" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')} title={locale === 'ar' ? 'English' : 'العربية'} className="hidden sm:flex">
+              <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="ml-1 text-xs sm:text-sm">{locale === 'ar' ? 'EN' : 'AR'}</span>
             </Button>
 
             {/* Search Icon - Mobile */}
             <Button variant="ghost" size="sm" className="md:hidden">
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4" />
             </Button>
 
             {/* User Account */}
@@ -98,12 +98,12 @@ export function Header() {
             ) : (
               <div className="flex items-center gap-2">
                 <Link href="/login">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                     {t('sign_in')}
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                  <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm px-2 sm:px-3">
                     {t('sign_up')}
                   </Button>
                 </Link>
@@ -112,7 +112,7 @@ export function Header() {
 
             {/* Shopping Cart */}
             <Button variant="ghost" size="sm" className="relative" onClick={() => setIsCartOpen(true)}>
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {itemCount}
@@ -127,7 +127,7 @@ export function Header() {
               onClick={toggleMenu}
               className="md:hidden"
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </Button>
           </div>
         </div>
