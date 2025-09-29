@@ -29,7 +29,7 @@ export default function AdminSettingsPage() {
     logo: '/images/logo.png',
     socialMedia: {
       instagram: '@jara_fashion',
-      twitter: '@jara_fashion',
+      tiktok: '@zaaraabayah',
       facebook: 'JARA Fashion'
     }
   })
@@ -258,7 +258,7 @@ export default function AdminSettingsPage() {
                 TikTok
               </label>
               <Input
-                value={settings.socialMedia.tiktok || ''}
+                value={settings.socialMedia.tiktok}
                 onChange={(e) => handleInputChange('socialMedia.tiktok', e.target.value)}
                 placeholder="@zaaraabayah"
               />
