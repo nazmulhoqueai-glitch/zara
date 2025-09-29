@@ -67,7 +67,7 @@ export function Header() {
           {/* Right Side Actions */}
           <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 flex-shrink-0">
             {/* Language Switcher */}
-            <Button variant="ghost" size="sm" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')} title={locale === 'ar' ? 'English' : 'العربية'} className="hidden sm:flex">
+            <Button variant="ghost" size="sm" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')} title={locale === 'ar' ? 'English' : 'العربية'}>
               <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="ml-1 text-xs sm:text-sm">{locale === 'ar' ? 'EN' : 'AR'}</span>
             </Button>
