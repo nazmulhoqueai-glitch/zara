@@ -26,7 +26,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img 
-              src="/images/Logo/Logo.png" 
+              src="/images/Logo/logo.png" 
               alt="JARA Logo" 
               className="h-10 w-auto"
             />
