@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react'
+import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react'
+import { MessageSquare } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleProvider'
 
 export function Footer() {
@@ -27,11 +28,11 @@ export function Footer() {
               <Link href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
                 <Facebook className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
+              <Link href="https://www.instagram.com/zaara_abayah?igsh=NThkYWh1enh0bzNj&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-emerald-400 transition-colors">
                 <Instagram className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
-                <Twitter className="w-5 h-5" />
+              <Link href="https://www.tiktok.com/@zaaraabayah?_t=ZS-906kVouhI8q&_r=1" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-emerald-400 transition-colors">
+                <MessageSquare className="w-5 h-5" />
               </Link>
             </div>
           </div>

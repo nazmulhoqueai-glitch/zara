@@ -255,12 +255,12 @@ export default function AdminSettingsPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Twitter
+                TikTok
               </label>
               <Input
-                value={settings.socialMedia.twitter}
-                onChange={(e) => handleInputChange('socialMedia.twitter', e.target.value)}
-                placeholder="@jara_fashion"
+                value={settings.socialMedia.tiktok || ''}
+                onChange={(e) => handleInputChange('socialMedia.tiktok', e.target.value)}
+                placeholder="@zaaraabayah"
               />
             </div>
 
