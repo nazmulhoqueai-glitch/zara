@@ -80,12 +80,21 @@ export function Header() {
             {/* User Account */}
             {user ? (
               <div className="flex items-center gap-2">
-                <Link href="/profile">
-                  <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    <span className="hidden sm:inline">{user.firstName || user.displayName}</span>
-                  </Button>
-                </Link>
+                {user.role === 'admin' ? (
+                  <Link href="/admin">
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100">
+                      <User className="w-4 h-4" />
+                      <span className="hidden sm:inline">Admin Dashboard</span>
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/profile">
+                    <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      <span className="hidden sm:inline">{user.firstName || user.displayName}</span>
+                    </Button>
+                  </Link>
+                )}
                 <Button 
                   variant="ghost" 
                   size="sm" 

@@ -9,10 +9,11 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAuth } from '@/contexts/AuthContext'
 import { useLocale } from '@/i18n/LocaleProvider'
+import AuthRedirect from '@/components/auth/AuthRedirect'
 
 export default function LoginPage() {
   const { t } = useLocale()
-  const { login, loading } = useAuth()
+  const { user, login, loading } = useAuth()
   const router = useRouter()
   const [formData, setFormData] = useState({
     email: '',
@@ -54,13 +55,18 @@ export default function LoginPage() {
 
     try {
       await login(formData.email, formData.password)
-      router.push('/')
+      // AuthRedirect component will handle the redirect based on user role
     } catch (error: any) {
       console.error('Login error:', error)
       setErrors({ 
         general: error.message || t('login_failed') 
       })
     }
+  }
+
+  // Redirect if user is already logged in
+  if (user) {
+    return <AuthRedirect />
   }
 
   return (
