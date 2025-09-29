@@ -11,6 +11,14 @@ const en = {
   footer_rights: "All rights reserved.",
   address_en: "Jeddah Serafi Mega Mall 1st Floor Gate No 1/6",
   address_ar: "جدة صيرفي ميجا مول الدور الأول بوابة رقم ١/٦",
+  footer_brand_description: "Modern Islamic fashion for the contemporary Muslim woman. Discover our collection of elegant Borkas designed with style, comfort, and modesty in mind.",
+  footer_contact_link: "Contact",
+  footer_shipping_info: "Shipping Info",
+  footer_returns_exchanges: "Returns & Exchanges",
+  footer_size_guide: "Size Guide",
+  footer_faq: "FAQ",
+  footer_privacy_policy: "Privacy Policy",
+  footer_payment_methods: "Payment Methods:",
   
   // Homepage Hero Section
   hero_slide1_title: "STUNNING BORKA",

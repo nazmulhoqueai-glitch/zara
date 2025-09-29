@@ -11,6 +11,14 @@ const ar = {
   footer_rights: "جميع الحقوق محفوظة",
   address_en: "Jeddah Serafi Mega Mall 1st Floor Gate No 1/6",
   address_ar: "جدة صيرفي ميجا مول الدور الأول بوابة رقم ١/٦",
+  footer_brand_description: "أزياء إسلامية عصرية للمرأة المسلمة المعاصرة. اكتشفي مجموعتنا من البرقع الأنيقة المصممة بأناقة وراحة وحياء.",
+  footer_contact_link: "تواصل معنا",
+  footer_shipping_info: "معلومات الشحن",
+  footer_returns_exchanges: "الإرجاع والاستبدال",
+  footer_size_guide: "دليل المقاسات",
+  footer_faq: "الأسئلة الشائعة",
+  footer_privacy_policy: "سياسة الخصوصية",
+  footer_payment_methods: "طرق الدفع:",
   
   // Homepage Hero Section
   hero_slide1_title: "برقع مذهل",

@@ -17,9 +17,7 @@ export function Footer() {
               <span className="text-xl font-bold">{t('brand')}</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Modern Islamic fashion for the contemporary Muslim woman. 
-              Discover our collection of elegant Borkas designed with 
-              style, comfort, and modesty in mind.
+              {t('footer_brand_description')}
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
@@ -60,7 +58,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/contact" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm">
-                  Contact
+                  {t('footer_contact_link')}
                 </Link>
               </li>
             </ul>
@@ -72,27 +70,27 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link href="/shipping" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm">
-                  Shipping Info
+                  {t('footer_shipping_info')}
                 </Link>
               </li>
               <li>
                 <Link href="/returns" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm">
-                  Returns & Exchanges
+                  {t('footer_returns_exchanges')}
                 </Link>
               </li>
               <li>
                 <Link href="/size-guide" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm">
-                  Size Guide
+                  {t('footer_size_guide')}
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm">
-                  FAQ
+                  {t('footer_faq')}
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm">
-                  Privacy Policy
+                  {t('footer_privacy_policy')}
                 </Link>
               </li>
             </ul>
@@ -128,7 +126,7 @@ export function Footer() {
               © 2024 {t('brand')}. {t('footer_rights')}
             </p>
             <div className="flex items-center space-x-6">
-              <span className="text-gray-400 text-sm">Payment Methods:</span>
+              <span className="text-gray-400 text-sm">{t('footer_payment_methods')}</span>
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-5 bg-gray-700 rounded text-xs flex items-center justify-center text-gray-300">
                   Apple Pay
