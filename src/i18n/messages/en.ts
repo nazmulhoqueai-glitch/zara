@@ -1,5 +1,5 @@
 const en = {
-  brand: "JARA",
+  brand: "ZAARA",
   nav_home: "Home",
   nav_products: "Products",
   nav_categories: "Categories",
@@ -52,7 +52,7 @@ const en = {
   view_all_featured: "View All Featured Products",
   
   // Why Choose JARA Section
-  why_choose_title: "Why Choose JARA",
+  why_choose_title: "Why Choose ZAARA",
   why_choose_subtitle: "We're committed to providing the best Islamic fashion experience",
   why_choose_premium_quality_title: "Premium Quality",
   why_choose_premium_quality_desc: "High-quality materials and craftsmanship in every piece",
@@ -366,7 +366,7 @@ const en = {
   back_to_home: "Back to Home",
   admin: "Admin",
   admin_dashboard: "Admin Dashboard",
-  admin_dashboard_subtitle: "Manage JARA Islamic Fashion Store",
+  admin_dashboard_subtitle: "Manage ZAARA Islamic Fashion Store",
   
   // Admin Navigation
   admin_nav_dashboard: "Dashboard",

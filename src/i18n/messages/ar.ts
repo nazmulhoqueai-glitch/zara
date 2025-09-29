@@ -1,5 +1,5 @@
 const ar = {
-  brand: "JARA",
+  brand: "ZAARA",
   nav_home: "الرئيسية",
   nav_products: "المنتجات",
   nav_categories: "التصنيفات",
@@ -51,7 +51,7 @@ const ar = {
   featured_products_subtitle: "قطع أزياء إسلامية متميزة مختارة بعناية تحدد الأناقة والأناقة",
   view_all_featured: "عرض جميع المنتجات المميزة",
   
-  // Why Choose JARA Section
+  // Why Choose ZAARA Section
   why_choose_title: "لماذا تختار جارا؟",
   why_choose_subtitle: "نحن ملتزمون بتقديم أفضل تجربة أزياء إسلامية",
   why_choose_premium_quality_title: "جودة مميزة",

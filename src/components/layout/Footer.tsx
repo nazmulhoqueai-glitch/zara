@@ -128,7 +128,7 @@ export function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2024 {t('brand')}. {t('footer_rights')}
+              © 2025 ZAARA. {t('footer_rights')}
             </p>
             <div className="flex items-center space-x-6">
               <span className="text-gray-400 text-sm">{t('footer_payment_methods')}</span>

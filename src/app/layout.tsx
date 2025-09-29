@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "JARA - Modern Islamic Fashion",
+  title: "ZAARA - Modern Islamic Fashion",
   description: "Modern Islamic fashion for the contemporary Muslim woman. Discover our collection of elegant Borkas designed with style, comfort, and modesty in mind.",
 };
 
