@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react'
 import { useLocale } from '@/i18n/LocaleProvider'
 
@@ -11,9 +12,11 @@ export function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center">
-              <img 
+              <Image 
                 src="/images/Logo/logo.png" 
                 alt="JARA Logo" 
+                width={48}
+                height={48}
                 className="h-12 w-auto"
               />
             </div>
