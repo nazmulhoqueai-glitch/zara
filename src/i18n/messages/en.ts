@@ -553,5 +553,11 @@ const en = {
   
   // Common Actions
   view_details: "View Details",
+
+  // Edit Product
+  edit_product: "Edit Product",
+  edit_product_subtitle: "Update product information and images",
+  update_product: "Update Product",
+  updating: "Updating...",
 };
 export default en;

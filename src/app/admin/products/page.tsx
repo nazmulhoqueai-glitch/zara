@@ -180,9 +180,19 @@ export default function ProductsPage() {
                   <Badge className="bg-red-600 text-white text-xs">{t('out_of_stock')}</Badge>
                 )}
               </div>
-              <div className="absolute top-2 right-2">
-                <Button variant="ghost" size="sm" className="w-8 h-8 p-0 bg-white/80 hover:bg-white">
-                  <MoreHorizontal className="w-4 h-4" />
+              <div className="absolute top-2 right-2 flex gap-1">
+                <Link href={`/admin/products/${product.id}/edit`}>
+                  <Button variant="ghost" size="sm" className="w-8 h-8 p-0 bg-white/80 hover:bg-white">
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-8 h-8 p-0 bg-white/80 hover:bg-white text-red-600 hover:text-red-700"
+                  onClick={() => handleDeleteProduct(product.id)}
+                >
+                  <Trash2 className="w-4 h-4" />
                 </Button>
               </div>
             </div>

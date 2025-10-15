@@ -553,5 +553,11 @@ const ar = {
   
   // Common Actions
   view_details: "عرض التفاصيل",
+
+  // Edit Product
+  edit_product: "تعديل المنتج",
+  edit_product_subtitle: "تحديث معلومات المنتج والصور",
+  update_product: "تحديث المنتج",
+  updating: "جاري التحديث...",
 };
 export default ar;

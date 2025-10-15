@@ -105,6 +105,9 @@ export async function getProductById(id: string): Promise<Product | null> {
   }
 }
 
+// Alias for getProductById
+export const getProduct = getProductById
+
 // Get products by category
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   try {
