@@ -94,9 +94,30 @@ export default function NewProductPage() {
     const files = event.target.files
     if (files) {
       const newFiles = Array.from(files)
-      setImageFiles(prev => [...prev, ...newFiles])
       
-      newFiles.forEach(file => {
+      // Validate file sizes (max 5MB per file)
+      const validFiles = newFiles.filter(file => {
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`File ${file.name} is too large. Maximum size is 5MB.`)
+          return false
+        }
+        return true
+      })
+      
+      // Validate file types
+      const imageFiles = validFiles.filter(file => {
+        if (!file.type.startsWith('image/')) {
+          alert(`File ${file.name} is not an image.`)
+          return false
+        }
+        return true
+      })
+      
+      if (imageFiles.length === 0) return
+      
+      setImageFiles(prev => [...prev, ...imageFiles])
+      
+      imageFiles.forEach(file => {
         const reader = new FileReader()
         reader.onload = (e) => {
           const newImage: ProductImage = {
@@ -106,9 +127,16 @@ export default function NewProductPage() {
           }
           setImages(prev => [...prev, newImage])
         }
+        reader.onerror = () => {
+          console.error('Error reading file:', file.name)
+          alert(`Error reading file ${file.name}`)
+        }
         reader.readAsDataURL(file)
       })
     }
+    
+    // Clear the input so the same file can be selected again
+    event.target.value = ''
   }
 
   const removeImage = (imageId: string) => {
@@ -176,15 +204,32 @@ export default function NewProductPage() {
         images: imageFiles
       }
 
+      console.log('Creating product with data:', productData)
+      console.log('Image files:', imageFiles)
+
       // Save to Firebase
       const productId = await createProduct(productData)
       console.log('Product created with ID:', productId)
 
       // Redirect to products list
       router.push('/admin/products')
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving product:', error)
-      setErrors({ general: 'Failed to create product. Please try again.' })
+      
+      // More specific error messages
+      let errorMessage = 'Failed to create product. Please try again.'
+      
+      if (error.code === 'storage/unauthorized') {
+        errorMessage = 'Storage access denied. Please check Firebase Storage rules.'
+      } else if (error.code === 'storage/quota-exceeded') {
+        errorMessage = 'Storage quota exceeded. Please contact administrator.'
+      } else if (error.code === 'permission-denied') {
+        errorMessage = 'Permission denied. Please make sure you are logged in as admin.'
+      } else if (error.message) {
+        errorMessage = error.message
+      }
+      
+      setErrors({ general: errorMessage })
     } finally {
       setLoading(false)
     }
@@ -225,6 +270,25 @@ export default function NewProductPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Error Display */}
+        {errors.general && (
+          <div className="bg-red-50 border border-red-200 rounded-md p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <X className="h-5 w-5 text-red-400" />
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">
+                  Error
+                </h3>
+                <div className="mt-2 text-sm text-red-700">
+                  {errors.general}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Form */}
           <div className="lg:col-span-2 space-y-6">
