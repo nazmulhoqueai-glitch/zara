@@ -152,14 +152,40 @@ export async function createProduct(productData: ProductFormData): Promise<strin
   try {
     // First, create the product document to get an ID
     const productsRef = collection(db, 'products')
-    const docRef = await addDoc(productsRef, {
-      ...productData,
+    
+    // Clean the data to remove undefined values
+    const cleanProductData = {
+      name: productData.name,
+      description: productData.description,
+      price: productData.price,
+      category: productData.category,
+      sizes: productData.sizes,
+      colors: productData.colors,
+      materials: productData.materials,
+      inStock: productData.inStock,
+      isNew: productData.isNew,
+      isFeatured: productData.isFeatured,
+      stock: productData.stock,
+      tags: productData.tags,
       images: [], // Will be updated after image uploads
       rating: 0,
       reviewCount: 0,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
-    })
+    }
+    
+    // Only add optional fields if they have values
+    if (productData.nameAr && productData.nameAr.trim()) {
+      cleanProductData.nameAr = productData.nameAr
+    }
+    if (productData.descriptionAr && productData.descriptionAr.trim()) {
+      cleanProductData.descriptionAr = productData.descriptionAr
+    }
+    if (productData.originalPrice && productData.originalPrice > 0) {
+      cleanProductData.originalPrice = productData.originalPrice
+    }
+    
+    const docRef = await addDoc(productsRef, cleanProductData)
 
     // Upload images and get URLs
     const imageUrls: string[] = []
@@ -186,10 +212,30 @@ export async function updateProduct(id: string, productData: Partial<ProductForm
   try {
     const productRef = doc(db, 'products', id)
     
-    const updateData: any = {
-      ...productData,
+    // Clean the data to remove undefined values
+    const cleanUpdateData: any = {
       updatedAt: serverTimestamp(),
     }
+    
+    // Only add fields that have values
+    Object.entries(productData).forEach(([key, value]) => {
+      if (value !== undefined) {
+        if (key === 'nameAr' || key === 'descriptionAr') {
+          // Only add if not empty string
+          if (value && value.toString().trim()) {
+            cleanUpdateData[key] = value
+          }
+        } else if (key === 'originalPrice') {
+          // Only add if greater than 0
+          if (value && Number(value) > 0) {
+            cleanUpdateData[key] = value
+          }
+        } else if (key !== 'images') {
+          // Add all other fields except images
+          cleanUpdateData[key] = value
+        }
+      }
+    })
 
     // If new images are provided, upload them
     if (productData.images && productData.images.length > 0) {
@@ -198,10 +244,10 @@ export async function updateProduct(id: string, productData: Partial<ProductForm
         const imageUrl = await uploadProductImage(imageFile, id)
         imageUrls.push(imageUrl)
       }
-      updateData.images = imageUrls
+      cleanUpdateData.images = imageUrls
     }
 
-    await updateDoc(productRef, updateData)
+    await updateDoc(productRef, cleanUpdateData)
   } catch (error) {
     console.error('Error updating product:', error)
     throw error
