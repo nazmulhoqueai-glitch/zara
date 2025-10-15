@@ -154,7 +154,7 @@ export async function createProduct(productData: ProductFormData): Promise<strin
     const productsRef = collection(db, 'products')
     
     // Clean the data to remove undefined values
-    const cleanProductData = {
+    const cleanProductData: any = {
       name: productData.name,
       description: productData.description,
       price: productData.price,
