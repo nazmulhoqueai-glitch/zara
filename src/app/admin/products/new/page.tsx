@@ -528,8 +528,16 @@ export default function NewProductPage() {
                     className="hidden"
                     id="image-upload"
                   />
-                  <label htmlFor="image-upload">
-                    <Button variant="outline" size="sm" className="cursor-pointer">
+                  <label 
+                    htmlFor="image-upload"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <Button 
+                      type="button"
+                      variant="outline" 
+                      size="sm" 
+                      className="cursor-pointer"
+                    >
                       <Plus className="w-4 h-4 mr-2" />
                       {t('choose_files')}
                     </Button>
