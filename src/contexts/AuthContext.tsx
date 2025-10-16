@@ -103,7 +103,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // Update local state
       setUser(prev => prev ? { ...prev, ...updatedData } : null)
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw error
     }
   }
@@ -129,7 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         await setDoc(doc(db, 'users', firebaseUser.uid), newUser)
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw error
     }
   }

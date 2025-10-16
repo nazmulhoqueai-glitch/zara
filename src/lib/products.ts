@@ -157,7 +157,7 @@ export async function createProduct(productData: ProductFormData): Promise<strin
     const productsRef = collection(db, 'products')
     
     // Clean the data to remove undefined values
-    const cleanProductData: any = {
+    const cleanProductData: Record<string, unknown> = {
       name: productData.name,
       description: productData.description,
       price: productData.price,
@@ -216,7 +216,7 @@ export async function updateProduct(id: string, productData: Partial<ProductForm
     const productRef = doc(db, 'products', id)
     
     // Clean the data to remove undefined values
-    const cleanUpdateData: any = {
+    const cleanUpdateData: Record<string, unknown> = {
       updatedAt: serverTimestamp(),
     }
     

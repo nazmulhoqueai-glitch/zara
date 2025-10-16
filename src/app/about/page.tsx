@@ -1,12 +1,13 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { Heart, Users, Award, Shield, Globe, Star } from 'lucide-react'
+import Link from 'next/link'
 
 export default function AboutPage() {
-  const { t, locale } = useLocale()
+  const { t } = useLocale()
 
   const features = [
     {
@@ -190,16 +191,16 @@ export default function AboutPage() {
                 {t('about_cta_description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/products">
+                <Link href="/products">
                   <Badge className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 text-lg cursor-pointer">
                     {t('about_cta_shop')}
                   </Badge>
-                </a>
-                <a href="/contact">
+                </Link>
+                <Link href="/contact">
                   <Badge variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900 px-6 py-3 text-lg cursor-pointer">
                     {t('about_cta_contact')}
                   </Badge>
-                </a>
+                </Link>
               </div>
             </CardContent>
           </Card>

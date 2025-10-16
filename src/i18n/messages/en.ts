@@ -342,7 +342,6 @@ const en = {
   // Related Products
   you_might_also_like: "You Might Also Like",
   discover_more_pieces: "Discover more beautiful pieces from our collection",
-  view_all_products: "View All Products",
   
   // Checkout & Payment
   checkout: "Checkout",
@@ -643,8 +642,6 @@ const en = {
   enter_store_description: "Enter store description",
   store_logo: "Store Logo",
   upload: "Upload",
-  contact_email: "Contact Email",
-  contact_phone: "Contact Phone",
   store_address: "Store Address",
   enter_store_address: "Enter store address",
   store_settings: "Store Settings",
