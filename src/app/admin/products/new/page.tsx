@@ -530,7 +530,7 @@ export default function NewProductPage() {
                   />
                   <label 
                     htmlFor="image-upload"
-                    onClick={(e) => e.preventDefault()}
+                    className="cursor-pointer"
                   >
                     <Button 
                       type="button"
