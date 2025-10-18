@@ -11,7 +11,8 @@ import {
   where,
   serverTimestamp 
 } from 'firebase/firestore'
-import { db } from './firebase'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { db, storage } from './firebase'
 
 export interface Product {
   id: string
@@ -139,21 +140,10 @@ export async function getProductsByCategory(category: string): Promise<Product[]
 // Upload image to Firebase Storage
 export async function uploadProductImage(file: File, productId: string): Promise<string> {
   try {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('productId', productId)
-
-    const response = await fetch('/api/upload-image', {
-      method: 'POST',
-      body: formData,
-    })
-
-    if (!response.ok) {
-      throw new Error('Upload failed')
-    }
-
-    const data = await response.json()
-    return data.url
+    const storageRef = ref(storage, `products/${productId}/${Date.now()}_${file.name}`)
+    const snapshot = await uploadBytes(storageRef, file)
+    const downloadURL = await getDownloadURL(snapshot.ref)
+    return downloadURL
   } catch (error) {
     console.error('Error uploading image:', error)
     throw error
