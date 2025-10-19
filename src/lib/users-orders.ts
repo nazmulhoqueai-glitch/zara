@@ -18,6 +18,10 @@ export interface User {
 
 export async function getAllUsers(): Promise<User[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const usersRef = collection(db, 'users')
     const q = query(usersRef, orderBy('createdAt', 'desc'))
     const querySnapshot = await getDocs(q)
@@ -46,6 +50,10 @@ export async function getAllUsers(): Promise<User[]> {
 
 export async function updateUserRole(uid: string, role: 'user' | 'admin'): Promise<void> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const userRef = doc(db, 'users', uid)
     await updateDoc(userRef, { role })
   } catch (error) {
@@ -56,6 +64,10 @@ export async function updateUserRole(uid: string, role: 'user' | 'admin'): Promi
 
 export async function updateUserStatus(uid: string, isActive: boolean): Promise<void> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const userRef = doc(db, 'users', uid)
     await updateDoc(userRef, { isActive })
   } catch (error) {
@@ -101,6 +113,10 @@ export interface Order {
 
 export async function createOrder(orderData: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const ordersRef = collection(db, 'orders')
     const now = new Date().toISOString()
     
@@ -121,6 +137,10 @@ export async function createOrder(orderData: Omit<Order, 'id' | 'createdAt' | 'u
 
 export async function getAllOrders(): Promise<Order[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const ordersRef = collection(db, 'orders')
     const q = query(ordersRef, orderBy('createdAt', 'desc'))
     const querySnapshot = await getDocs(q)
@@ -147,6 +167,10 @@ export async function getAllOrders(): Promise<Order[]> {
 
 export async function updateOrderStatus(orderId: string, status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'): Promise<void> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const orderRef = doc(db, 'orders', orderId)
     await updateDoc(orderRef, { 
       status,
@@ -160,6 +184,10 @@ export async function updateOrderStatus(orderId: string, status: 'pending' | 'pr
 
 export async function getOrdersByUser(userId: string): Promise<Order[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const ordersRef = collection(db, 'orders')
     const q = query(ordersRef, where('customer.email', '==', userId), orderBy('createdAt', 'desc'))
     const querySnapshot = await getDocs(q)

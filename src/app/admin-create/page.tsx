@@ -27,6 +27,10 @@ export default function CreateAdminPage() {
     setSuccess(false)
 
     try {
+      if (!auth) {
+        throw new Error('Firebase Auth not initialized')
+      }
+      
       // Create Firebase user
       const { user } = await createUserWithEmailAndPassword(
         auth, 
@@ -48,6 +52,10 @@ export default function CreateAdminPage() {
         updatedAt: new Date()
       }
 
+      if (!db) {
+        throw new Error('Firebase Firestore not initialized')
+      }
+      
       await setDoc(doc(db, 'users', user.uid), adminUser)
       
       setSuccess(true)

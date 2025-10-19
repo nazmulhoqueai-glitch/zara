@@ -23,8 +23,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!auth) return
+    
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
-      if (firebaseUser) {
+      if (firebaseUser && db) {
         // Get user data from Firestore
         const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid))
         if (userDoc.exists()) {
@@ -52,10 +54,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const login = async (email: string, password: string) => {
+    if (!auth) throw new Error('Firebase Auth not initialized')
     await signInWithEmailAndPassword(auth, email, password)
   }
 
   const register = async (email: string, password: string, profileData: { firstName: string; lastName: string; phone: string }) => {
+    if (!auth || !db) throw new Error('Firebase not initialized')
     const { user: firebaseUser } = await createUserWithEmailAndPassword(auth, email, password)
     
     // Update Firebase Auth profile
@@ -79,11 +83,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const logout = async () => {
+    if (!auth) throw new Error('Firebase Auth not initialized')
     await signOut(auth)
   }
 
   const updateUserProfile = async (profileData: Partial<User>) => {
     if (!user) throw new Error('No user logged in')
+    if (!db) throw new Error('Firebase Firestore not initialized')
 
     try {
       const updatedData = {
@@ -95,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await setDoc(doc(db, 'users', user.uid), updatedData, { merge: true })
 
       // Update Firebase Auth profile
-      if (profileData.firstName || profileData.lastName) {
+      if ((profileData.firstName || profileData.lastName) && auth) {
         await updateProfile(auth.currentUser!, {
           displayName: `${profileData.firstName || user.firstName} ${profileData.lastName || user.lastName}`.trim()
         })
@@ -109,6 +115,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const loginWithGoogle = async () => {
+    if (!auth || !db) throw new Error('Firebase not initialized')
+    
     try {
       const provider = new GoogleAuthProvider()
       const { user: firebaseUser } = await signInWithPopup(auth, provider)

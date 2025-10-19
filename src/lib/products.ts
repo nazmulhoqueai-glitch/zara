@@ -60,6 +60,10 @@ export interface ProductFormData {
 // Get all products
 export async function getAllProducts(): Promise<Product[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productsRef = collection(db, 'products')
     const q = query(productsRef, orderBy('createdAt', 'desc'))
     const querySnapshot = await getDocs(q)
@@ -85,6 +89,10 @@ export async function getAllProducts(): Promise<Product[]> {
 // Get product by ID
 export async function getProductById(id: string): Promise<Product | null> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productRef = doc(db, 'products', id)
     const productSnap = await getDoc(productRef)
     
@@ -111,6 +119,10 @@ export const getProduct = getProductById
 // Get products by category
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productsRef = collection(db, 'products')
     const q = query(
       productsRef, 
@@ -140,6 +152,10 @@ export async function getProductsByCategory(category: string): Promise<Product[]
 // Upload image to Firebase Storage
 export async function uploadProductImage(file: File, productId: string): Promise<string> {
   try {
+    if (!storage) {
+      throw new Error('Firebase Storage not initialized')
+    }
+    
     const storageRef = ref(storage, `products/${productId}/${Date.now()}_${file.name}`)
     const snapshot = await uploadBytes(storageRef, file)
     const downloadURL = await getDownloadURL(snapshot.ref)
@@ -153,6 +169,10 @@ export async function uploadProductImage(file: File, productId: string): Promise
 // Create new product
 export async function createProduct(productData: ProductFormData): Promise<string> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     // First, create the product document to get an ID
     const productsRef = collection(db, 'products')
     
@@ -213,6 +233,10 @@ export async function createProduct(productData: ProductFormData): Promise<strin
 // Update product
 export async function updateProduct(id: string, productData: Partial<ProductFormData>): Promise<void> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productRef = doc(db, 'products', id)
     
     // Clean the data to remove undefined values
@@ -258,8 +282,12 @@ export async function updateProduct(id: string, productData: Partial<ProductForm
 }
 
 // Delete product
-export async function deleteProduct(id: string): Promise<void> {
+export async function deleteProduct(id: string): Promise<void> {        
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productRef = doc(db, 'products', id)
     await deleteDoc(productRef)
   } catch (error) {
@@ -271,6 +299,10 @@ export async function deleteProduct(id: string): Promise<void> {
 // Get featured products
 export async function getFeaturedProducts(): Promise<Product[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productsRef = collection(db, 'products')
     const q = query(
       productsRef,
@@ -300,6 +332,10 @@ export async function getFeaturedProducts(): Promise<Product[]> {
 // Get new products
 export async function getNewProducts(): Promise<Product[]> {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const productsRef = collection(db, 'products')
     const q = query(
       productsRef,

@@ -8,6 +8,10 @@ export async function createAdminUser(userId: string, userData: {
   phone: string
 }) {
   try {
+    if (!db) {
+      throw new Error('Firebase Firestore not initialized')
+    }
+    
     const adminUser = {
       uid: userId,
       email: userData.email,

@@ -13,12 +13,21 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
-// Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
+// Check if we're in a browser environment and all config is available
+const isClient = typeof window !== 'undefined'
+const hasConfig = firebaseConfig.apiKey && firebaseConfig.projectId
 
-// Initialize Firebase services
-export const auth = getAuth(app)
-export const db = getFirestore(app)
-export const storage = getStorage(app)
+// Initialize Firebase only on client side with valid config
+let app: any = null
+if (isClient && hasConfig && getApps().length === 0) {
+  app = initializeApp(firebaseConfig)
+} else if (getApps().length > 0) {
+  app = getApps()[0]
+}
+
+// Initialize Firebase services only if app exists
+export const auth = app ? getAuth(app) : null
+export const db = app ? getFirestore(app) : null
+export const storage = app ? getStorage(app) : null
 
 export default app
