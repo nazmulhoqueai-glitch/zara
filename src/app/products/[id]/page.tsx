@@ -11,9 +11,7 @@ import { RelatedProducts } from '@/components/products/RelatedProducts'
 import { ProductReviews } from '@/components/products/ProductReviews'
 import { Product } from '@/types/product'
 import { useLocale } from '@/i18n/LocaleProvider'
-
-// Mock data - In real app, this would come from Firebase/API
-const mockProducts: Product[] = []
+import { getProductById, getAllProducts } from '@/lib/products'
 
 // Mock reviews data
 const mockReviews = [
@@ -61,20 +59,33 @@ export default function ProductDetailsPage() {
   const productId = params.id as string
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
+  const [allProducts, setAllProducts] = useState<Product[]>([])
 
   useEffect(() => {
-    // Simulate API call
     const fetchProduct = async () => {
-      setLoading(true)
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      const foundProduct = mockProducts.find(p => p.id === productId)
-      setProduct(foundProduct || null)
-      setLoading(false)
+      try {
+        setLoading(true)
+        
+        // Fetch the specific product and all products for related products
+        const [productData, allProductsData] = await Promise.all([
+          getProductById(productId),
+          getAllProducts()
+        ])
+        
+        setProduct(productData)
+        setAllProducts(allProductsData)
+      } catch (error) {
+        console.error('Error fetching product:', error)
+        setProduct(null)
+        setAllProducts([])
+      } finally {
+        setLoading(false)
+      }
     }
 
-    fetchProduct()
+    if (productId) {
+      fetchProduct()
+    }
   }, [productId])
 
   const handleAddToCart = (product: Product, quantity: number, selectedSize?: string, selectedColor?: string) => {
@@ -183,7 +194,7 @@ export default function ProductDetailsPage() {
 
       {/* Related Products */}
       <RelatedProducts
-        products={mockProducts}
+        products={allProducts}
         currentProductId={product.id}
         onAddToCart={handleAddToCartSimple}
         onToggleWishlist={handleToggleWishlist}
