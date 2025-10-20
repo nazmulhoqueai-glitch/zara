@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Search, Grid, List, SlidersHorizontal, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,9 +9,7 @@ import { ProductCard } from '@/components/products/ProductCard'
 import { ProductFilters } from '@/components/products/ProductFilters'
 import { Product, ProductFilter, SORT_OPTIONS } from '@/types/product'
 import { useLocale } from '@/i18n/LocaleProvider'
-
-// Mock data - In real app, this would come from Firebase/API
-const mockProducts: Product[] = []
+import { getAllProducts } from '@/lib/products'
 
 export default function ProductsPage() {
   const { t } = useLocale()
@@ -20,14 +18,34 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState('newest')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [showFilters, setShowFilters] = useState(false)
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Load products from Firebase
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true)
+        const allProducts = await getAllProducts()
+        setProducts(allProducts)
+      } catch (error) {
+        console.error('Error loading products:', error)
+        setProducts([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadProducts()
+  }, [])
 
   // Filter and search products
   const filteredProducts = useMemo(() => {
-    let products = mockProducts
+    let filteredProducts = products
 
     // Search filter
     if (searchQuery) {
-      products = products.filter(product =>
+      filteredProducts = filteredProducts.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -36,33 +54,33 @@ export default function ProductsPage() {
 
     // Category filter
     if (filters.category) {
-      products = products.filter(product => product.category === filters.category)
+      filteredProducts = filteredProducts.filter(product => product.category === filters.category)
     }
 
     // Size filter
     if (filters.sizes && filters.sizes.length > 0) {
-      products = products.filter(product =>
+      filteredProducts = filteredProducts.filter(product =>
         product.sizes.some(size => filters.sizes!.includes(size))
       )
     }
 
     // Color filter
     if (filters.colors && filters.colors.length > 0) {
-      products = products.filter(product =>
+      filteredProducts = filteredProducts.filter(product =>
         product.colors.some(color => filters.colors!.includes(color))
       )
     }
 
     // Material filter
     if (filters.materials && filters.materials.length > 0) {
-      products = products.filter(product =>
+      filteredProducts = filteredProducts.filter(product =>
         product.materials.some(material => filters.materials!.includes(material))
       )
     }
 
     // Price range filter
     if (filters.priceRange) {
-      products = products.filter(product =>
+      filteredProducts = filteredProducts.filter(product =>
         product.price >= filters.priceRange!.min &&
         product.price <= filters.priceRange!.max
       )
@@ -70,21 +88,21 @@ export default function ProductsPage() {
 
     // In stock filter
     if (filters.inStock) {
-      products = products.filter(product => product.inStock)
+      filteredProducts = filteredProducts.filter(product => product.inStock)
     }
 
     // New arrivals filter
     if (filters.isNew) {
-      products = products.filter(product => product.isNew)
+      filteredProducts = filteredProducts.filter(product => product.isNew)
     }
 
     // Featured filter
     if (filters.isFeatured) {
-      products = products.filter(product => product.isFeatured)
+      filteredProducts = filteredProducts.filter(product => product.isFeatured)
     }
 
-    return products
-  }, [mockProducts, filters, searchQuery])
+    return filteredProducts
+  }, [products, filters, searchQuery])
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -155,7 +173,7 @@ export default function ProductsPage() {
             <ProductFilters
               filters={filters}
               onFiltersChange={setFilters}
-              totalProducts={mockProducts.length}
+              totalProducts={products.length}
               filteredProducts={filteredProducts.length}
             />
           </div>
@@ -219,7 +237,14 @@ export default function ProductsPage() {
             </div>
 
             {/* Products Grid/List */}
-            {sortedProducts.length > 0 ? (
+            {loading ? (
+              <div className="flex justify-center items-center py-12">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+                  <p className="text-gray-600">{t('loading')}...</p>
+                </div>
+              </div>
+            ) : sortedProducts.length > 0 ? (
               <div className={
                 viewMode === 'grid'
                   ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
