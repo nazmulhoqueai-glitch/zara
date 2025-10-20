@@ -66,14 +66,33 @@ export default function ProductDetailsPage() {
       try {
         setLoading(true)
         
-        // Fetch the specific product and all products for related products
-        const [productData, allProductsData] = await Promise.all([
-          getProductById(productId),
-          getAllProducts()
-        ])
+        // Retry mechanism for Firebase initialization
+        let retries = 0
+        const maxRetries = 3
         
-        setProduct(productData)
-        setAllProducts(allProductsData)
+        while (retries < maxRetries) {
+          try {
+            // Fetch the specific product and all products for related products
+            const [productData, allProductsData] = await Promise.all([
+              getProductById(productId),
+              getAllProducts()
+            ])
+            
+            setProduct(productData)
+            setAllProducts(allProductsData)
+            break // Success, exit retry loop
+          } catch (error) {
+            retries++
+            console.log(`Attempt ${retries} failed, retrying...`)
+            
+            if (retries >= maxRetries) {
+              throw error
+            }
+            
+            // Wait before retrying
+            await new Promise(resolve => setTimeout(resolve, 1000))
+          }
+        }
       } catch (error) {
         console.error('Error fetching product:', error)
         setProduct(null)

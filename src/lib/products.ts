@@ -61,7 +61,8 @@ export interface ProductFormData {
 export async function getAllProducts(): Promise<Product[]> {
   try {
     if (!db) {
-      throw new Error('Firebase Firestore not initialized')
+      console.error('Firebase Firestore not initialized - db is null')
+      return []
     }
     
     const productsRef = collection(db, 'products')
@@ -82,7 +83,7 @@ export async function getAllProducts(): Promise<Product[]> {
     return products
   } catch (error) {
     console.error('Error getting products:', error)
-    throw error
+    return []
   }
 }
 
@@ -90,7 +91,8 @@ export async function getAllProducts(): Promise<Product[]> {
 export async function getProductById(id: string): Promise<Product | null> {
   try {
     if (!db) {
-      throw new Error('Firebase Firestore not initialized')
+      console.error('Firebase Firestore not initialized - db is null')
+      return null
     }
     
     const productRef = doc(db, 'products', id)
@@ -106,10 +108,11 @@ export async function getProductById(id: string): Promise<Product | null> {
       } as Product
     }
     
+    console.log(`Product with ID ${id} not found`)
     return null
   } catch (error) {
     console.error('Error getting product:', error)
-    throw error
+    return null
   }
 }
 
