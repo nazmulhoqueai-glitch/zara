@@ -290,10 +290,10 @@ export default function Home() {
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                           <div className="text-4xl md:text-6xl">👗</div>
-                        </div>
+                </div>
                       )}
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-                    </div>
+                      {/* removed overlay to prevent covering image */}
+              </div>
               <div className="mt-4">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
                       <p className="text-xl font-bold text-emerald-600">{product.price} {t('currency_sar')}</p>
@@ -500,10 +500,10 @@ export default function Home() {
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                           <div className="text-4xl md:text-6xl">👗</div>
-                        </div>
+                </div>
                       )}
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-                    </div>
+                      {/* removed overlay to prevent covering image */}
+              </div>
               <div className="mt-4">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
                       <p className="text-xl font-bold text-emerald-600">{product.price} {t('currency_sar')}</p>
