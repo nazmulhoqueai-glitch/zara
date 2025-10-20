@@ -336,13 +336,14 @@ export async function getFeaturedProducts(): Promise<Product[]> {
 export async function getNewProducts(): Promise<Product[]> {
   try {
     if (!db) {
-      throw new Error('Firebase Firestore not initialized')
+      console.error('Firebase Firestore not initialized - db is null')
+      return []
     }
     
     const productsRef = collection(db, 'products')
+    // Automatic: newest by createdAt, limited to 8
     const q = query(
       productsRef,
-      where('isNew', '==', true),
       orderBy('createdAt', 'desc')
     )
     const querySnapshot = await getDocs(q)
@@ -358,9 +359,10 @@ export async function getNewProducts(): Promise<Product[]> {
       } as Product)
     })
     
-    return products
+    // Return only top 8
+    return products.slice(0, 8)
   } catch (error) {
     console.error('Error getting new products:', error)
-    throw error
+    return []
   }
 }
