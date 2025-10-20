@@ -277,22 +277,23 @@ export default function Home() {
               {newArrivals.slice(0, 8).map((product) => (
                 <div key={product.id} className="group cursor-pointer">
                   <Link href={`/products/${product.id}`}>
-              <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
                       {product.images && product.images.length > 0 ? (
                         <Image
                           src={product.images[0]}
                           alt={product.name}
-                          width={300}
-                          height={450}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          priority={false}
                         />
                       ) : (
-                        <div className="aspect-[2/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                           <div className="text-4xl md:text-6xl">👗</div>
-                </div>
+                        </div>
                       )}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-              </div>
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                    </div>
               <div className="mt-4">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
                       <p className="text-xl font-bold text-emerald-600">{product.price} {t('currency_sar')}</p>
@@ -486,22 +487,23 @@ export default function Home() {
               {featuredProducts.slice(0, 8).map((product) => (
                 <div key={product.id} className="group cursor-pointer">
                   <Link href={`/products/${product.id}`}>
-              <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
                       {product.images && product.images.length > 0 ? (
                         <Image
                           src={product.images[0]}
                           alt={product.name}
-                          width={300}
-                          height={450}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          priority={false}
                         />
                       ) : (
-                        <div className="aspect-[2/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                           <div className="text-4xl md:text-6xl">👗</div>
-                </div>
+                        </div>
                       )}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-              </div>
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                    </div>
               <div className="mt-4">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
                       <p className="text-xl font-bold text-emerald-600">{product.price} {t('currency_sar')}</p>
