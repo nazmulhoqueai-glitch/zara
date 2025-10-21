@@ -27,16 +27,17 @@ export async function createReview(productId: string, userId: string, userData: 
     if (!db) {
       throw new Error('Firebase Firestore not initialized')
     }
-    if (!storage) {
-      throw new Error('Firebase Storage not initialized')
-    }
 
     // Upload review images if any
     let imageUrls: string[] = []
     if (reviewData.images && reviewData.images.length > 0) {
+      if (!storage) {
+        throw new Error('Firebase Storage not initialized')
+      }
+      
       const uploadPromises = reviewData.images.map(async (file) => {
         const fileName = `${Date.now()}_${file.name}`
-        const imageRef = ref(storage, `reviews/${productId}/${fileName}`)
+        const imageRef = ref(storage!, `reviews/${productId}/${fileName}`)
         const snapshot = await uploadBytes(imageRef, file)
         return await getDownloadURL(snapshot.ref)
       })
