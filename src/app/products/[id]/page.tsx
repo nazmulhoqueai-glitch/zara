@@ -13,45 +13,6 @@ import { Product } from '@/types/product'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { getProductById, getAllProducts } from '@/lib/products'
 
-// Mock reviews data
-const mockReviews = [
-  {
-    id: '1',
-    userName: 'Sarah Ahmed',
-    rating: 5,
-    title: 'Absolutely beautiful!',
-    comment: 'This Borka is stunning. The embroidery is so detailed and the fabric is comfortable. Perfect for special occasions. Highly recommend!',
-    date: '2024-01-15',
-    verified: true,
-    helpful: 12,
-    size: 'm',
-    color: 'purple'
-  },
-  {
-    id: '2',
-    userName: 'Fatima Al-Rashid',
-    rating: 4,
-    title: 'Great quality',
-    comment: 'Good quality fabric and nice design. The fit is perfect. Only minor issue is the shipping took a bit longer than expected.',
-    date: '2024-01-10',
-    verified: true,
-    helpful: 8,
-    size: 'l',
-    color: 'navy'
-  },
-  {
-    id: '3',
-    userName: 'Aisha Khan',
-    rating: 5,
-    title: 'Love it!',
-    comment: 'This is exactly what I was looking for. The color is beautiful and the material is soft. Will definitely order again.',
-    date: '2024-01-08',
-    verified: true,
-    helpful: 15,
-    size: 's',
-    color: 'purple'
-  }
-]
 
 export default function ProductDetailsPage() {
   const { t } = useLocale()
@@ -206,9 +167,7 @@ export default function ProductDetailsPage() {
       {/* Product Reviews */}
       <ProductReviews
         productId={product.id}
-        averageRating={product.rating || 0}
-        totalReviews={product.reviewCount || 0}
-        reviews={mockReviews}
+        productName={product.name}
       />
 
       {/* Related Products */}
