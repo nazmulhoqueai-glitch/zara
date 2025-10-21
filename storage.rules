@@ -1,18 +1,21 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    // Product images - anyone can read, only admins can write
+    // Product images - anyone can read, authenticated users can write
     match /products/{productId}/{fileName} {
       allow read: if true; // Public read access for product images
-      allow write: if request.auth != null && 
-        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      allow write: if request.auth != null; // Allow any authenticated user to upload
     }
     
-    // User profile images - users can read/write their own, admins can read/write all
+    // Review images - anyone can read, authenticated users can write
+    match /reviews/{productId}/{fileName} {
+      allow read: if true; // Public read access for review images
+      allow write: if request.auth != null; // Allow any authenticated user to upload
+    }
+    
+    // User profile images - users can read/write their own
     match /users/{userId}/{fileName} {
-      allow read, write: if request.auth != null && 
-        (request.auth.uid == userId || 
-         firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
     // Default rule - deny everything else
