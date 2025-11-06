@@ -109,8 +109,18 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section with Carousel */}
       <section className="relative h-screen overflow-hidden">
-        {/* Dark Background with Islamic Patterns */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${heroSlides[currentSlide].bgPattern}`}>
+        {/* Background with Logo Image */}
+        <div className="absolute inset-0">
+          {/* Logo Background Image */}
+          <Image
+            src="/Images/Logo/logo.png"
+            alt="Avaya House Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Color Overlay */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${heroSlides[currentSlide].bgPattern} opacity-80`}></div>
           {/* Islamic Geometric Patterns */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-20 w-64 h-64 border-2 border-white/20 rounded-full"></div>
@@ -322,116 +332,104 @@ export default function Home() {
       {/* Featured Collections Banner */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile Layout: 2 rows */}
-          <div className="flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-6">
-            
-            {/* Row 1: Two small columns side by side on mobile */}
-            <div className="flex flex-row gap-4 md:flex-col md:gap-6 md:col-span-1">
-              
-              {/* Small Column 1 - Left */}
-              <div className="relative overflow-hidden rounded-xl shadow-2xl group cursor-pointer h-48 md:h-full flex-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900">
-                  {/* Islamic Geometric Patterns */}
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-4 left-4 w-12 h-12 border-2 border-white/30 rounded-full"></div>
-                    <div className="absolute bottom-4 right-4 w-8 h-8 border-2 border-white/30 rounded-full"></div>
-                  </div>
-                  
-                  {/* Ornate Pillars */}
-                  <div className="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/30 to-transparent"></div>
-                  <div className="absolute right-0 top-0 w-4 h-full bg-gradient-to-l from-black/30 to-transparent"></div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            {/* Card 1 - Party Borka */}
+            <div className="relative overflow-hidden rounded-xl shadow-2xl group cursor-pointer h-80 md:h-96">
+              {/* Background Image */}
+              <Image
+                src="/Images/party-borka.png"
+                alt="Party Borka Collection"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+
+              {/* Gradient Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col justify-end p-6">
+                <div className="text-white">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                    {t('featured_collections_party_borka').split(' ')[0]}
+                    <br />
+                    <span className="text-yellow-400">{t('featured_collections_party_borka').split(' ')[1]}</span>
+                  </h3>
+                  <p className="text-sm md:text-base text-white/90">
+                    {t('featured_collections_party_borka_desc')}
+                  </p>
                 </div>
-                
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col justify-end p-4">
-                  <div className="text-white text-right">
-                    <h3 className="text-lg md:text-2xl font-bold mb-1">
-                      {t('featured_collections_party_borka').split(' ')[0]}
-                      <br />
-                      <span className="text-yellow-400">{t('featured_collections_party_borka').split(' ')[1]}</span>
-                    </h3>
-                    <p className="text-sm md:text-lg text-yellow-400 font-semibold mb-2">
-                      {t('featured_collections_embroidered_subtitle')}
-                    </p>
-                    <p className="text-xs md:text-sm text-white/90">
-                      {t('featured_collections_party_borka_desc')}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
               </div>
 
-              {/* Small Column 2 - Right */}
-              <div className="relative overflow-hidden rounded-xl shadow-2xl group cursor-pointer h-48 md:h-full flex-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-rose-900 via-pink-900 to-red-900">
-                  {/* Islamic Geometric Patterns */}
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-4 left-4 w-12 h-12 border-2 border-white/30 rounded-full"></div>
-                    <div className="absolute bottom-4 right-4 w-8 h-8 border-2 border-white/30 rounded-full"></div>
-                  </div>
-                  
-                  {/* Ornate Pillars */}
-                  <div className="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/30 to-transparent"></div>
-                  <div className="absolute right-0 top-0 w-4 h-full bg-gradient-to-l from-black/30 to-transparent"></div>
-                </div>
-                
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col justify-start p-4">
-                  <div className="text-white text-right">
-                    <h3 className="text-lg md:text-2xl font-bold mb-1">
-                      {t('featured_collections_party_abaya').split(' ')[0]}
-                      <br />
-                      <span className="text-yellow-400">{t('featured_collections_party_abaya').split(' ')[1]}</span>
-                    </h3>
-                    <p className="text-xs md:text-sm text-white/90 mt-2">
-                      {t('featured_collections_party_abaya_desc')}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
-              </div>
+              {/* Hover Effect */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
             </div>
 
-            {/* Row 2: Large column on mobile, spans 2 columns on desktop */}
-            <div className="relative overflow-hidden rounded-xl shadow-2xl group cursor-pointer h-48 md:h-full md:col-span-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
-                {/* Islamic Geometric Patterns */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white/30 rounded-full"></div>
-                  <div className="absolute top-8 right-8 w-12 h-12 border-2 border-white/30 rounded-full"></div>
-                  <div className="absolute bottom-8 left-8 w-20 h-20 border-2 border-white/30 rounded-full"></div>
-                  <div className="absolute bottom-4 right-4 w-14 h-14 border-2 border-white/30 rounded-full"></div>
-                </div>
-                
-                {/* Ornate Pillars */}
-                <div className="absolute left-0 top-0 w-8 h-full bg-gradient-to-r from-black/30 to-transparent"></div>
-                <div className="absolute right-0 top-0 w-8 h-full bg-gradient-to-l from-black/30 to-transparent"></div>
-              </div>
-              
+            {/* Card 2 - Party Abaya */}
+            <div className="relative overflow-hidden rounded-xl shadow-2xl group cursor-pointer h-80 md:h-96">
+              {/* Background Image */}
+              <Image
+                src="/Images/party-avaya.png"
+                alt="Party Abaya Collection"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+
+              {/* Gradient Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
               {/* Content */}
-              <div className="relative z-10 h-full flex items-center p-4 md:p-8">
+              <div className="relative z-10 h-full flex flex-col justify-end p-6">
                 <div className="text-white">
-                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                    {t('featured_collections_party_abaya').split(' ')[0]}
+                    <br />
+                    <span className="text-yellow-400">{t('featured_collections_party_abaya').split(' ')[1]}</span>
+                  </h3>
+                  <p className="text-sm md:text-base text-white/90">
+                    {t('featured_collections_party_abaya_desc')}
+                  </p>
+                </div>
+              </div>
+
+              {/* Hover Effect */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
+            </div>
+
+            {/* Card 3 - Embroidered Borka */}
+            <div className="relative overflow-hidden rounded-xl shadow-2xl group cursor-pointer h-80 md:h-96">
+              {/* Background Image */}
+              <Image
+                src="/Images/embroidery-borka.png"
+                alt="Embroidered Borka Collection"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+
+              {/* Gradient Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col justify-end p-6">
+                <div className="text-white">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">
                     {t('featured_collections_embroidered_title').split(' ')[0]}
                     <br />
                     <span className="text-yellow-400">{t('featured_collections_embroidered_title').split(' ')[1]}</span>
-                  </h2>
-                  <p className="text-lg md:text-xl lg:text-2xl text-yellow-400 font-semibold mb-2 md:mb-6">
-                    {t('featured_collections_embroidered_subtitle')}
-                  </p>
-                  <p className="text-sm md:text-lg text-white/90 max-w-md hidden md:block">
+                  </h3>
+                  <p className="text-sm md:text-base text-white/90">
                     {t('featured_collections_embroidered_description')}
                   </p>
                 </div>
               </div>
-              
+
               {/* Hover Effect */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
             </div>
+
           </div>
         </div>
       </section>
